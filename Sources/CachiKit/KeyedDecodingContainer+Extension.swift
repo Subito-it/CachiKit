@@ -10,7 +10,7 @@ private let dateFormatter: ISO8601DateFormatter = {
 extension KeyedDecodingContainer {
     func decodeValue<T>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> T {
         let resultValue = try decode(XCResultValue.self, forKey: key)
-        return convertType(type, value: resultValue._value)
+        return convertType(type, value: resultValue._value ?? "")
     }
     
     func decodeValueIfPresent<T>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> T? {
@@ -59,7 +59,7 @@ private class TypedObject: Codable {
 }
 
 private class XCResultValue: TypedObject {
-    let _value: String
+    let _value: String?
     
     private enum CodingKeys: String, CodingKey {
         case _value
@@ -68,7 +68,7 @@ private class XCResultValue: TypedObject {
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self._value = try container.decode(String.self, forKey: ._value)
+        self._value = try container.decodeIfPresent(String.self, forKey: ._value)
         
         try super.init(from: decoder)
     }
