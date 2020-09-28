@@ -8,6 +8,7 @@ public class ActionTestActivitySummary: Codable {
     public let finish: Date?
     public let attachments: [ActionTestAttachment]
     public let subactivities: [ActionTestActivitySummary]
+    public let failureSummaryIDs: [String]
     
     private enum CodingKeys: String, CodingKey {
         case title
@@ -17,6 +18,7 @@ public class ActionTestActivitySummary: Codable {
         case finish
         case attachments
         case subactivities
+        case failureSummaryIDs
     }
     
     required public init(from decoder: Decoder) throws {
@@ -29,5 +31,6 @@ public class ActionTestActivitySummary: Codable {
         self.finish = try container.decodeValueIfPresent(Date.self, forKey: .finish)
         self.attachments = try container.decodeValuesIfPresent(ActionTestAttachment.self, forKey: .attachments) ?? []
         self.subactivities = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .subactivities) ?? []
+        self.failureSummaryIDs = try container.decodeValuesIfPresent(String.self, forKey: .failureSummaryIDs) ?? []
     }
 }

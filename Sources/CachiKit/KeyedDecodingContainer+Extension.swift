@@ -110,6 +110,7 @@ private enum SupportedType: String, Codable {
     case actionTestAttachment = "ActionTestAttachment"
     case actionTestFailureSummary = "ActionTestFailureSummary"
     case actionTestMetadata = "ActionTestMetadata"
+    case actionTestNoticeSummary = "ActionTestNoticeSummary"
     case actionTestPerformanceMetricSummary = "ActionTestPerformanceMetricSummary"
     case actionTestPlanRunSummaries = "ActionTestPlanRunSummaries"
     case actionTestPlanRunSummary = "ActionTestPlanRunSummary"
@@ -139,6 +140,11 @@ private enum SupportedType: String, Codable {
     case resultMetrics = "ResultMetrics"
     case sortedKeyValueArray = "SortedKeyValueArray"
     case sortedKeyValueArrayPair = "SortedKeyValueArrayPair"
+    case sourceCodeContext = "SourceCodeContext"
+    case sourceCodeFrame = "SourceCodeFrame"
+    case sourceCodeLocation = "SourceCodeLocation"
+    case sourceCodeSymbolInfo = "SourceCodeSymbolInfo"
+    case testAssociatedError = "TestAssociatedError"
     case testFailureIssueSummary = "TestFailureIssueSummary"
     case typeDefinition = "TypeDefinition"
 
@@ -166,6 +172,7 @@ private extension KeyedDecodingContainer {
         case .actionTestAttachment: return try decode([ActionTestAttachment].self, forKey: key) as! T
         case .actionTestFailureSummary: return try decode([ActionTestFailureSummary].self, forKey: key) as! T
         case .actionTestMetadata: return try decode([ActionTestMetadata].self, forKey: key) as! T
+        case .actionTestNoticeSummary: return try decode([ActionTestNoticeSummary].self, forKey: key) as! T
         case .actionTestPerformanceMetricSummary: return try decode([ActionTestPerformanceMetricSummary].self, forKey: key) as! T
         case .actionTestPlanRunSummaries: return try decode([ActionTestPlanRunSummaries].self, forKey: key) as! T
         case .actionTestPlanRunSummary: return try decode([ActionTestPlanRunSummary].self, forKey: key) as! T
@@ -195,6 +202,11 @@ private extension KeyedDecodingContainer {
         case .resultMetrics: return try decode([ResultMetrics].self, forKey: key) as! T
         case .sortedKeyValueArray: return try decode([SortedKeyValueArray].self, forKey: key) as! T
         case .sortedKeyValueArrayPair: return try decode([SortedKeyValueArrayPair].self, forKey: key) as! T
+        case .sourceCodeContext: return try decode([SourceCodeContext].self, forKey: key) as! T
+        case .sourceCodeFrame: return try decode([SourceCodeFrame].self, forKey: key) as! T
+        case .sourceCodeLocation: return try decode([SourceCodeLocation].self, forKey: key) as! T
+        case .sourceCodeSymbolInfo: return try decode([SourceCodeSymbolInfo].self, forKey: key) as! T
+        case .testAssociatedError: return try decode([TestAssociatedError].self, forKey: key) as! T
         case .testFailureIssueSummary: return try decode([TestFailureIssueSummary].self, forKey: key) as! T
         case .typeDefinition: return try decode([TypeDefinition].self, forKey: key) as! T
 

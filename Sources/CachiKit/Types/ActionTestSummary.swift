@@ -5,6 +5,7 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
     public let duration: Double
     public let performanceMetrics: [ActionTestPerformanceMetricSummary]
     public let failureSummaries: [ActionTestFailureSummary]
+    public let skipNoticeSummary: ActionTestNoticeSummary?
     public let activitySummaries: [ActionTestActivitySummary]
     
     private enum CodingKeys: String, CodingKey {
@@ -12,6 +13,7 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
         case duration
         case performanceMetrics
         case failureSummaries
+        case skipNoticeSummary
         case activitySummaries
     }
     
@@ -22,6 +24,7 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
         self.duration = try  container.decodeValue(Double.self, forKey: .duration)
         self.performanceMetrics = try container.decodeValuesIfPresent(ActionTestPerformanceMetricSummary.self, forKey: .performanceMetrics) ?? []
         self.failureSummaries = try container.decodeValuesIfPresent(ActionTestFailureSummary.self, forKey: .failureSummaries) ?? []
+        self.skipNoticeSummary =  try container.decodeValueIfPresent(ActionTestNoticeSummary.self, forKey: .skipNoticeSummary)
         self.activitySummaries = try container.decodeValues(ActionTestActivitySummary.self, forKey: .activitySummaries)
         
         try super.init(from: decoder)

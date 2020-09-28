@@ -6,6 +6,7 @@ public class ActivityLogSection: Codable {
     public let startTime: Date?
     public let duration: Double
     public let result: String?
+    public let location: DocumentLocation?
     public let subsections: [ActivityLogSection]
     public let messages: [ActivityLogMessage]
     
@@ -15,6 +16,7 @@ public class ActivityLogSection: Codable {
         case startTime
         case duration
         case result
+        case location
         case subsections
         case messages
     }
@@ -27,6 +29,7 @@ public class ActivityLogSection: Codable {
         self.startTime = try container.decodeValueIfPresent(Date.self, forKey: .startTime)
         self.duration = try container.decodeValue(Double.self, forKey: .duration)
         self.result = try container.decodeValueIfPresent(String.self, forKey: .result)
+        self.location = try container.decodeValueIfPresent(DocumentLocation.self, forKey: .location)
         self.subsections = try container.decodeValues(ActivityLogSection.self, forKey: .subsections)
         self.messages = try container.decodeValues(ActivityLogMessage.self, forKey: .messages)
     }

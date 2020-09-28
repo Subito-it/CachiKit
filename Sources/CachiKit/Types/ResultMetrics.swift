@@ -5,6 +5,7 @@ public class ResultMetrics: Codable {
     public let errorCount: Int?
     public let testsCount: Int?
     public let testsFailedCount: Int?
+    public let testsSkippedCount: Int?
     public let warningCount: Int?
     
     private enum CodingKeys: String, CodingKey {
@@ -12,6 +13,7 @@ public class ResultMetrics: Codable {
         case errorCount
         case testsCount
         case testsFailedCount
+        case testsSkippedCount
         case warningCount
     }
     
@@ -22,6 +24,7 @@ public class ResultMetrics: Codable {
         self.errorCount = try container.decodeValueIfPresent(Int.self, forKey: .errorCount)
         self.testsCount = try container.decodeValueIfPresent(Int.self, forKey: .testsCount)
         self.testsFailedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsFailedCount)
+        self.testsSkippedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsSkippedCount)
         self.warningCount = try container.decodeValueIfPresent(Int.self, forKey: .warningCount)
     }
 }
