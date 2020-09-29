@@ -45,6 +45,9 @@ public class CachiKit {
         do {
             return try decoder.decode(T.self, from: Data(rawString.utf8))
         } catch {
+            #if DEBUG
+                dump(error)
+            #endif
             throw error
         }
     }
