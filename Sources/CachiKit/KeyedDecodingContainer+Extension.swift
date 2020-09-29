@@ -51,14 +51,14 @@ extension KeyedDecodingContainer {
     }
 }
 
-private class TypedObject: Codable {
+fileprivate class TypedObject: Codable {
     class ObjectType: Codable {
         let _name: SupportedType
     }
     let _type: ObjectType
 }
 
-private class XCResultValue: TypedObject {
+fileprivate class XCResultValue: TypedObject {
     let _value: String?
     
     private enum CodingKeys: String, CodingKey {
@@ -210,11 +210,7 @@ private extension KeyedDecodingContainer {
         case .testFailureIssueSummary: return try decode([TestFailureIssueSummary].self, forKey: key) as! T
         case .typeDefinition: return try decode([TypeDefinition].self, forKey: key) as! T
 
-        case .string: return try decode([String].self, forKey: key) as! T
-        case .bool: return try decode([Bool].self, forKey: key) as! T
-        case .int: return try decode([Int].self, forKey: key) as! T
-        case .double: return try decode([Double].self, forKey: key) as! T
-        case .date: return try decode([Date].self, forKey: key) as! T
+        case .string, .bool, .int, .double, .date: return try decode([XCResultValue].self, forKey: key).map(\._value) as! T
         }
     }
 }
