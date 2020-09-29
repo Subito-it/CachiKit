@@ -6,7 +6,7 @@ public class ActionTestAttachment: Codable {
     public let timestamp: Date?
     public let userInfo: SortedKeyValueArray?
     public let lifetime: String
-    public let inActivityIdentifier: Int
+    public let inActivityIdentifier: Int?
     public let filename: String?
     public let payloadRef: Reference?
     public let payloadSize: Int
@@ -31,7 +31,7 @@ public class ActionTestAttachment: Codable {
         self.timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
         self.userInfo = try container.decodeValueIfPresent(SortedKeyValueArray.self, forKey: .userInfo)
         self.lifetime = try container.decodeValue(String.self, forKey: .lifetime)
-        self.inActivityIdentifier = try container.decodeValue(Int.self, forKey: .inActivityIdentifier)
+        self.inActivityIdentifier = try container.decodeValueIfPresent(Int.self, forKey: .inActivityIdentifier) ?? -1
         self.filename = try container.decodeValueIfPresent(String.self, forKey: .filename)
         self.payloadRef = try container.decodeIfPresent(Reference.self, forKey: .payloadRef)
         self.payloadSize = try container.decodeValue(Int.self, forKey: .payloadSize)
