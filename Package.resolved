@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "ShellOut",
-        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
+        "repositoryURL": "https://github.com/tcamin/ShellOut.git",
         "state": {
           "branch": "master",
-          "revision": "d3db50b62a86b18f88f5de38cae5f3d80617d555",
+          "revision": "93b2ab645196d77d1142b80d3da2edc86905df8f",
           "version": null
         }
       }
