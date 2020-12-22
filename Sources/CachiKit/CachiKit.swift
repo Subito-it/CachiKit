@@ -49,7 +49,7 @@ public class CachiKit {
             self.rawValue = rawValue
         }
     }
-    
+        
     public func actionInvocationSessionLogs(identifier: String, sessionLogs: SessionLogs) throws -> [SessionLogs: String]  {
         enum ParsingState { case schedulelog, elements, ids }
         
@@ -59,7 +59,21 @@ public class CachiKit {
         let cmd = "xcrun xcresulttool graph --path '\(url.path)' --id \(identifier)"
         
         os_log("Running '%@'", log: .default, type: .debug, cmd)
-        let rawString = try shellOut(to: [cmd])
+        var rawString = ""
+        let sem = DispatchSemaphore(value: 0)
+        
+        // This is a HACK
+        // Some graph queries can take a lot of time to complete because they contain a large amount of data
+        // The information we are interested in is located at the beginning of the output. Therefore we use
+        // a custom handler that exists when we received a reasonable amount of data
+        DispatchQueue.global(qos: .userInitiated).async {
+            let handle = HeadHandler(headSize: 4096) { data in
+                rawString = String(decoding: data, as: UTF8.self)
+                sem.signal()
+            }
+            _ = try? shellOut(to: [cmd], outputHandle: handle)
+        }
+        _ = sem.wait(timeout: .now() + 30.0)
         
         let parseRows: (String) throws -> (identifiers: [String], elementsOrder: [SessionLogs]) = { rawString in
             var state = ParsingState.schedulelog
@@ -116,7 +130,10 @@ public class CachiKit {
         
         for sessionLog in [SessionLogs.appStdOutErr, .runnerAppStdOutErr, .session, .scheduling] {
             if sessionLogs.contains(sessionLog), let index = elementsOrder.firstIndex(of: sessionLog) {
-                result[sessionLog] = identifiers[index]
+                let cmd = "xcrun xcresulttool get --path '\(url.path)' --id \(identifiers[index])"
+                
+                os_log("Running '%@'", log: .default, type: .debug, cmd)
+                result[sessionLog] = try shellOut(to: [cmd])
             }
         }
         
@@ -141,5 +158,37 @@ public class CachiKit {
             #endif
             throw error
         }
+    }
+}
+
+private class HeadHandler: Handle {
+    var shouldCloseFileOnExit = true
+    
+    private let headSize: Int
+    private var completionBlock: ((Data) -> Void)?
+    private var data = Data()
+    
+    init(headSize: Int, completionBlock: @escaping (Data) -> Void) {
+        self.headSize = headSize
+        self.completionBlock = completionBlock
+    }
+    
+    func write(_ data: Data) {
+        guard completionBlock != nil else { return }
+        
+        self.data += data
+        
+        if self.data.count > headSize {
+            invokeCompletion(data: self.data)
+        }
+    }
+    
+    func closeFile() {
+        invokeCompletion(data: data)
+    }
+    
+    private func invokeCompletion(data: Data) {
+        completionBlock?(data)
+        completionBlock = nil
     }
 }
