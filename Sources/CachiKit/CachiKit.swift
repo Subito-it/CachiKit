@@ -153,6 +153,7 @@ public class CachiKit {
         do {
             return try decoder.decode(T.self, from: Data(rawString.utf8))
         } catch {
+            print("\n\nFailed decoding instance of type \(T.self)")
             #if DEBUG
                 dump(error)
             #endif
