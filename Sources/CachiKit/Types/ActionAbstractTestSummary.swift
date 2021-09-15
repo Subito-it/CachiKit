@@ -12,4 +12,8 @@ public class ActionAbstractTestSummary: Codable {
         
         self.name = try container.decodeValue(String.self, forKey: .name)
     }
+    
+    init(name: String) {
+        self.name = name
+    }
 }

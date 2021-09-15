@@ -14,4 +14,9 @@ public class ActionTestSummaryIdentifiableObject: ActionAbstractTestSummary {
         
         try super.init(from: decoder)
     }
+    
+    init(identifier: String, name: String) {
+        self.identifier = identifier
+        super.init(name: name)
+    }
 }
