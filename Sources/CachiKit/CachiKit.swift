@@ -1,6 +1,7 @@
 import Foundation
 import ShellOut
 import os
+import ZippyJSON
 
 public class CachiKit {
     public struct Error: Swift.Error {
@@ -149,7 +150,7 @@ public class CachiKit {
         os_log("Running '%@'", log: .default, type: .debug, cmd)
         let rawString = try shellOut(to: [cmd])
 
-        let decoder = JSONDecoder()
+        let decoder = ZippyJSONDecoder()
         do {
             return try decoder.decode(T.self, from: Data(rawString.utf8))
         } catch {
