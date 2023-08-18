@@ -9,7 +9,7 @@ public class ActionTestAttachment: Codable {
     public let inActivityIdentifier: Int?
     public let filename: String?
     public let payloadRef: Reference?
-    public let payloadSize: Int
+    public let payloadSize: Int?
     
     private enum CodingKeys: String, CodingKey {
         case uniformTypeIdentifier
@@ -34,6 +34,6 @@ public class ActionTestAttachment: Codable {
         self.inActivityIdentifier = try container.decodeValueIfPresent(Int.self, forKey: .inActivityIdentifier) ?? -1
         self.filename = try container.decodeValueIfPresent(String.self, forKey: .filename)
         self.payloadRef = try container.decodeIfPresent(Reference.self, forKey: .payloadRef)
-        self.payloadSize = try container.decodeValue(Int.self, forKey: .payloadSize)
+        self.payloadSize = try container.decodeValueIfPresent(Int.self, forKey: .payloadSize)
     }
 }

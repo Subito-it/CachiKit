@@ -25,7 +25,7 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
         self.performanceMetrics = try container.decodeValuesIfPresent(ActionTestPerformanceMetricSummary.self, forKey: .performanceMetrics) ?? []
         self.failureSummaries = try container.decodeValuesIfPresent(ActionTestFailureSummary.self, forKey: .failureSummaries) ?? []
         self.skipNoticeSummary =  try container.decodeValueIfPresent(ActionTestNoticeSummary.self, forKey: .skipNoticeSummary)
-        self.activitySummaries = try container.decodeValues(ActionTestActivitySummary.self, forKey: .activitySummaries)
+        self.activitySummaries = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .activitySummaries) ?? []
         
         try super.init(from: decoder)
     }
