@@ -13,7 +13,7 @@ public class ActionTestFailureSummary: Codable {
     public let sourceCodeContext: SourceCodeContext?
     public let timestamp: Date?
     public let isTopLevelFailure: Bool
-    
+
     private enum CodingKeys: String, CodingKey {
         case message
         case fileName
@@ -28,21 +28,21 @@ public class ActionTestFailureSummary: Codable {
         case timestamp
         case isTopLevelFailure
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.message = try container.decodeValueIfPresent(String.self, forKey: .message)
-        self.fileName = try container.decodeValueIfPresent(String.self, forKey: .fileName)
-        self.lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber)
-        self.isPerformanceFailure = try container.decodeValueIfPresent(Bool.self, forKey: .isPerformanceFailure)
-        self.uuid = try container.decodeValueIfPresent(String.self, forKey: .uuid) ?? "missing-uuid"
-        self.issueType = try container.decodeValueIfPresent(String.self, forKey: .issueType)
-        self.detailedDescription = try container.decodeValueIfPresent(String.self, forKey: .detailedDescription)
-        self.attachments = try container.decodeValuesIfPresent(ActionTestAttachment.self, forKey: .attachments) ?? []
-        self.associatedError = try container.decodeValueIfPresent(TestAssociatedError.self, forKey: .associatedError)
-        self.sourceCodeContext = try container.decodeValueIfPresent(SourceCodeContext.self, forKey: .sourceCodeContext)
-        self.timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
-        self.isTopLevelFailure = try container.decodeValueIfPresent(Bool.self, forKey: .isTopLevelFailure) ?? true
+
+        message = try container.decodeValueIfPresent(String.self, forKey: .message)
+        fileName = try container.decodeValueIfPresent(String.self, forKey: .fileName)
+        lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber)
+        isPerformanceFailure = try container.decodeValueIfPresent(Bool.self, forKey: .isPerformanceFailure)
+        uuid = try container.decodeValueIfPresent(String.self, forKey: .uuid) ?? "missing-uuid"
+        issueType = try container.decodeValueIfPresent(String.self, forKey: .issueType)
+        detailedDescription = try container.decodeValueIfPresent(String.self, forKey: .detailedDescription)
+        attachments = try container.decodeValuesIfPresent(ActionTestAttachment.self, forKey: .attachments) ?? []
+        associatedError = try container.decodeValueIfPresent(TestAssociatedError.self, forKey: .associatedError)
+        sourceCodeContext = try container.decodeValueIfPresent(SourceCodeContext.self, forKey: .sourceCodeContext)
+        timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
+        isTopLevelFailure = try container.decodeValueIfPresent(Bool.self, forKey: .isTopLevelFailure) ?? true
     }
 }

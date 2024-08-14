@@ -3,7 +3,7 @@ import Foundation
 private let dateFormatter: ISO8601DateFormatter = {
     let dateFormatter = ISO8601DateFormatter()
     dateFormatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime]
-    
+
     return dateFormatter
 }()
 
@@ -12,19 +12,19 @@ extension KeyedDecodingContainer {
         let resultValue = try decode(XCResultValue.self, forKey: key)
         return convertType(type, value: resultValue._value ?? "")
     }
-    
+
     func decodeValueIfPresent<T>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> T? {
         let resultValue = try decodeIfPresent(XCResultValue.self, forKey: key)
         guard let value = resultValue?._value else { return nil }
         return convertType(type, value: value)
     }
-    
-    func decodeValues<T: Codable>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [T] {
+
+    func decodeValues<T: Codable>(_: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [T] {
         let resultValue = try decode(XCResultValues<T>.self, forKey: key)
         return resultValue._values
     }
-    
-    func decodeValuesIfPresent<T: Codable>(_ type: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [T]? {
+
+    func decodeValuesIfPresent<T: Codable>(_: T.Type, forKey key: KeyedDecodingContainer<K>.Key) throws -> [T]? {
         let resultValue = try decodeIfPresent(XCResultValues<T>.self, forKey: key)
         return resultValue?._values
     }
@@ -51,43 +51,44 @@ extension KeyedDecodingContainer {
     }
 }
 
-fileprivate class TypedObject: Codable {
+private class TypedObject: Codable {
     class ObjectType: Codable {
         let _name: SupportedType
     }
+
     let _type: ObjectType
 }
 
-fileprivate class XCResultValue: TypedObject {
+private class XCResultValue: TypedObject {
     let _value: String?
-    
+
     private enum CodingKeys: String, CodingKey {
         case _value
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self._value = try container.decodeIfPresent(String.self, forKey: ._value)
-        
+
+        _value = try container.decodeIfPresent(String.self, forKey: ._value)
+
         try super.init(from: decoder)
     }
 }
 
 private class XCResultValues<T: Codable>: Codable {
     let _values: [T]
-    
+
     enum CodingKeys: String, CodingKey {
         case _values
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         var arrayContainer = try container.nestedUnkeyedContainer(forKey: ._values)
         if arrayContainer.isAtEnd == false {
             let elementType = try arrayContainer.decode(TypedObject.self)._type._name
-            
+
             _values = try container.decode(elementType, forKey: ._values)
         } else {
             _values = []
@@ -130,6 +131,7 @@ private enum SupportedType: String, Codable {
     case activityLogSection = "ActivityLogSection"
     case activityLogTargetBuildSection = "ActivityLogTargetBuildSection"
     case activityLogUnitTestSection = "ActivityLogUnitTestSection"
+    case sourceCodeContext = "SourceCodeContext"
     case archiveInfo = "ArchiveInfo"
     case codeCoverageInfo = "CodeCoverageInfo"
     case documentLocation = "DocumentLocation"
@@ -140,7 +142,6 @@ private enum SupportedType: String, Codable {
     case resultMetrics = "ResultMetrics"
     case sortedKeyValueArray = "SortedKeyValueArray"
     case sortedKeyValueArrayPair = "SortedKeyValueArrayPair"
-    case sourceCodeContext = "SourceCodeContext"
     case sourceCodeFrame = "SourceCodeFrame"
     case sourceCodeLocation = "SourceCodeLocation"
     case sourceCodeSymbolInfo = "SourceCodeSymbolInfo"
@@ -158,59 +159,62 @@ private enum SupportedType: String, Codable {
 private extension KeyedDecodingContainer {
     func decode<T>(_ type: SupportedType, forKey key: KeyedDecodingContainer.Key) throws -> T {
         switch type {
-        case .actionAbstractTestSummary: return try decode([ActionAbstractTestSummary].self, forKey: key) as! T
-        case .actionDeviceRecord: return try decode([ActionDeviceRecord].self, forKey: key) as! T
-        case .actionPlatformRecord: return try decode([ActionPlatformRecord].self, forKey: key) as! T
-        case .actionRecord: return try decode([ActionRecord].self, forKey: key) as! T
-        case .actionResult: return try decode([ActionResult].self, forKey: key) as! T
-        case .actionRunDestinationRecord: return try decode([ActionRunDestinationRecord].self, forKey: key) as! T
-        case .actionSDKRecord: return try decode([ActionSDKRecord].self, forKey: key) as! T
-        case .actionsInvocationMetadata: return try decode([ActionsInvocationMetadata].self, forKey: key) as! T
-        case .actionsInvocationRecord: return try decode([ActionsInvocationRecord].self, forKey: key) as! T
-        case .actionTestableSummary: return try decode([ActionTestableSummary].self, forKey: key) as! T
-        case .actionTestActivitySummary: return try decode([ActionTestActivitySummary].self, forKey: key) as! T
-        case .actionTestAttachment: return try decode([ActionTestAttachment].self, forKey: key) as! T
-        case .actionTestFailureSummary: return try decode([ActionTestFailureSummary].self, forKey: key) as! T
-        case .actionTestMetadata: return try decode([ActionTestMetadata].self, forKey: key) as! T
-        case .actionTestNoticeSummary: return try decode([ActionTestNoticeSummary].self, forKey: key) as! T
-        case .actionTestPerformanceMetricSummary: return try decode([ActionTestPerformanceMetricSummary].self, forKey: key) as! T
-        case .actionTestPlanRunSummaries: return try decode([ActionTestPlanRunSummaries].self, forKey: key) as! T
-        case .actionTestPlanRunSummary: return try decode([ActionTestPlanRunSummary].self, forKey: key) as! T
-        case .actionTestSummary: return try decode([ActionTestSummary].self, forKey: key) as! T
-        case .actionTestSummaryGroup: return try decode([ActionTestSummaryGroup].self, forKey: key) as! T
-        case .actionTestSummaryIdentifiableObject: return try decode([ActionTestSummaryIdentifiableObject].self, forKey: key) as! T
-        case .activityLogAnalyzerControlFlowStep: return try decode([ActivityLogAnalyzerControlFlowStep].self, forKey: key) as! T
-        case .activityLogAnalyzerControlFlowStepEdge: return try decode([ActivityLogAnalyzerControlFlowStepEdge].self, forKey: key) as! T
-        case .activityLogAnalyzerEventStep: return try decode([ActivityLogAnalyzerEventStep].self, forKey: key) as! T
-        case .activityLogAnalyzerResultMessage: return try decode([ActivityLogAnalyzerResultMessage].self, forKey: key) as! T
-        case .activityLogAnalyzerStep: return try decode([ActivityLogAnalyzerStep].self, forKey: key) as! T
-        case .activityLogAnalyzerWarningMessage: return try decode([ActivityLogAnalyzerWarningMessage].self, forKey: key) as! T
-        case .activityLogCommandInvocationSection: return try decode([ActivityLogCommandInvocationSection].self, forKey: key) as! T
-        case .activityLogMajorSection: return try decode([ActivityLogMajorSection].self, forKey: key) as! T
-        case .activityLogMessage: return try decode([ActivityLogMessage].self, forKey: key) as! T
-        case .activityLogMessageAnnotation: return try decode([ActivityLogMessageAnnotation].self, forKey: key) as! T
-        case .activityLogSection: return try decode([ActivityLogSection].self, forKey: key) as! T
-        case .activityLogTargetBuildSection: return try decode([ActivityLogTargetBuildSection].self, forKey: key) as! T
-        case .activityLogUnitTestSection: return try decode([ActivityLogUnitTestSection].self, forKey: key) as! T
-        case .archiveInfo: return try decode([ArchiveInfo].self, forKey: key) as! T
-        case .codeCoverageInfo: return try decode([CodeCoverageInfo].self, forKey: key) as! T
-        case .documentLocation: return try decode([DocumentLocation].self, forKey: key) as! T
-        case .entityIdentifier: return try decode([EntityIdentifier].self, forKey: key) as! T
-        case .issueSummary: return try decode([IssueSummary].self, forKey: key) as! T
-        case .reference: return try decode([Reference].self, forKey: key) as! T
-        case .resultIssueSummaries: return try decode([ResultIssueSummaries].self, forKey: key) as! T
-        case .resultMetrics: return try decode([ResultMetrics].self, forKey: key) as! T
-        case .sortedKeyValueArray: return try decode([SortedKeyValueArray].self, forKey: key) as! T
-        case .sortedKeyValueArrayPair: return try decode([SortedKeyValueArrayPair].self, forKey: key) as! T
-        case .sourceCodeContext: return try decode([SourceCodeContext].self, forKey: key) as! T
-        case .sourceCodeFrame: return try decode([SourceCodeFrame].self, forKey: key) as! T
-        case .sourceCodeLocation: return try decode([SourceCodeLocation].self, forKey: key) as! T
-        case .sourceCodeSymbolInfo: return try decode([SourceCodeSymbolInfo].self, forKey: key) as! T
-        case .testAssociatedError: return try decode([TestAssociatedError].self, forKey: key) as! T
-        case .testFailureIssueSummary: return try decode([TestFailureIssueSummary].self, forKey: key) as! T
-        case .typeDefinition: return try decode([TypeDefinition].self, forKey: key) as! T
-
-        case .string, .bool, .int, .double, .date: return try decode([XCResultValue].self, forKey: key).map(\._value) as! T
+        case .actionAbstractTestSummary: try decode([ActionAbstractTestSummary].self, forKey: key) as! T
+        case .actionDeviceRecord: try decode([ActionDeviceRecord].self, forKey: key) as! T
+        case .actionPlatformRecord: try decode([ActionPlatformRecord].self, forKey: key) as! T
+        case .actionRecord: try decode([ActionRecord].self, forKey: key) as! T
+        case .actionResult: try decode([ActionResult].self, forKey: key) as! T
+        case .actionRunDestinationRecord: try decode([ActionRunDestinationRecord].self, forKey: key) as! T
+        case .actionSDKRecord: try decode([ActionSDKRecord].self, forKey: key) as! T
+        case .actionsInvocationMetadata: try decode([ActionsInvocationMetadata].self, forKey: key) as! T
+        case .actionsInvocationRecord: try decode([ActionsInvocationRecord].self, forKey: key) as! T
+        case .actionTestableSummary: try decode([ActionTestableSummary].self, forKey: key) as! T
+        case .actionTestActivitySummary: try decode([ActionTestActivitySummary].self, forKey: key) as! T
+        case .actionTestAttachment: try decode([ActionTestAttachment].self, forKey: key) as! T
+        case .actionTestFailureSummary: try decode([ActionTestFailureSummary].self, forKey: key) as! T
+        case .actionTestMetadata: try decode([ActionTestMetadata].self, forKey: key) as! T
+        case .actionTestNoticeSummary: try decode([ActionTestNoticeSummary].self, forKey: key) as! T
+        case .actionTestPerformanceMetricSummary: try decode([ActionTestPerformanceMetricSummary].self, forKey: key) as! T
+        case .actionTestPlanRunSummaries: try decode([ActionTestPlanRunSummaries].self, forKey: key) as! T
+        case .actionTestPlanRunSummary: try decode([ActionTestPlanRunSummary].self, forKey: key) as! T
+        case .actionTestSummary: try decode([ActionTestSummary].self, forKey: key) as! T
+        case .actionTestSummaryGroup: try decode([ActionTestSummaryGroup].self, forKey: key) as! T
+        case .actionTestSummaryIdentifiableObject: try decode([ActionTestSummaryIdentifiableObject].self, forKey: key) as! T
+        case .activityLogAnalyzerControlFlowStep: try decode([ActivityLogAnalyzerControlFlowStep].self, forKey: key) as! T
+        case .activityLogAnalyzerControlFlowStepEdge: try decode([ActivityLogAnalyzerControlFlowStepEdge].self, forKey: key) as! T
+        case .activityLogAnalyzerEventStep: try decode([ActivityLogAnalyzerEventStep].self, forKey: key) as! T
+        case .activityLogAnalyzerResultMessage: try decode([ActivityLogAnalyzerResultMessage].self, forKey: key) as! T
+        case .activityLogAnalyzerStep: try decode([ActivityLogAnalyzerStep].self, forKey: key) as! T
+        case .activityLogAnalyzerWarningMessage: try decode([ActivityLogAnalyzerWarningMessage].self, forKey: key) as! T
+        case .activityLogCommandInvocationSection: try decode([ActivityLogCommandInvocationSection].self, forKey: key) as! T
+        case .activityLogMajorSection: try decode([ActivityLogMajorSection].self, forKey: key) as! T
+        case .activityLogMessage: try decode([ActivityLogMessage].self, forKey: key) as! T
+        case .activityLogMessageAnnotation: try decode([ActivityLogMessageAnnotation].self, forKey: key) as! T
+        case .activityLogSection: try decode([ActivityLogSection].self, forKey: key) as! T
+        case .activityLogTargetBuildSection: try decode([ActivityLogTargetBuildSection].self, forKey: key) as! T
+        case .activityLogUnitTestSection: try decode([ActivityLogUnitTestSection].self, forKey: key) as! T
+        case .sourceCodeContext:
+            try decode([SourceCodeContext].self, forKey: key) as! T
+        case .testAssociatedError:
+            try decode([TestAssociatedError].self, forKey: key) as! T
+        case .archiveInfo: try decode([ArchiveInfo].self, forKey: key) as! T
+        case .codeCoverageInfo: try decode([CodeCoverageInfo].self, forKey: key) as! T
+        case .documentLocation: try decode([DocumentLocation].self, forKey: key) as! T
+        case .entityIdentifier: try decode([EntityIdentifier].self, forKey: key) as! T
+        case .issueSummary: try decode([IssueSummary].self, forKey: key) as! T
+        case .reference: try decode([Reference].self, forKey: key) as! T
+        case .resultIssueSummaries: try decode([ResultIssueSummaries].self, forKey: key) as! T
+        case .resultMetrics: try decode([ResultMetrics].self, forKey: key) as! T
+        case .sortedKeyValueArray: try decode([SortedKeyValueArray].self, forKey: key) as! T
+        case .sortedKeyValueArrayPair: try decode([SortedKeyValueArrayPair].self, forKey: key) as! T
+        case .sourceCodeContext: try decode([SourceCodeContext].self, forKey: key) as! T
+        case .sourceCodeFrame: try decode([SourceCodeFrame].self, forKey: key) as! T
+        case .sourceCodeLocation: try decode([SourceCodeLocation].self, forKey: key) as! T
+        case .sourceCodeSymbolInfo: try decode([SourceCodeSymbolInfo].self, forKey: key) as! T
+        case .testAssociatedError: try decode([TestAssociatedError].self, forKey: key) as! T
+        case .testFailureIssueSummary: try decode([TestFailureIssueSummary].self, forKey: key) as! T
+        case .typeDefinition: try decode([TypeDefinition].self, forKey: key) as! T
+        case .string, .bool, .int, .double, .date: try decode([XCResultValue].self, forKey: key).map(\._value) as! T
         }
     }
 }

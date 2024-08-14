@@ -7,14 +7,15 @@ let package = Package(
     name: "CachiKit",
     platforms: [
         // specify each minimum deployment requirement,
-        //otherwise the platform default minimum is used.
-       .macOS(.v10_13),
+        // otherwise the platform default minimum is used.
+        .macOS(.v10_13),
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "CachiKit",
-            targets: ["CachiKit"]),
+            targets: ["CachiKit"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -27,10 +28,12 @@ let package = Package(
         .target(
             name: "CachiKit",
             dependencies: ["ShellOut", "ZippyJSON"],
-            path: "Sources"),
+            path: "Sources"
+        ),
         .testTarget(
             name: "CachiKitTests",
             dependencies: ["CachiKit"],
-            path: "Tests")
+            path: "Tests"
+        ),
     ]
 )

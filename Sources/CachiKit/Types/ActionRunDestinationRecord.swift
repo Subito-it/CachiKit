@@ -6,7 +6,7 @@ public class ActionRunDestinationRecord: Codable {
     public let targetDeviceRecord: ActionDeviceRecord
     public let localComputerRecord: ActionDeviceRecord
     public let targetSDKRecord: ActionSDKRecord
-    
+
     private enum CodingKeys: String, CodingKey {
         case displayName
         case targetArchitecture
@@ -14,14 +14,14 @@ public class ActionRunDestinationRecord: Codable {
         case localComputerRecord
         case targetSDKRecord
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.displayName = try container.decodeValue(String.self, forKey: .displayName)
-        self.targetArchitecture = try container.decodeValue(String.self, forKey: .targetArchitecture)
-        self.targetDeviceRecord = try container.decode(ActionDeviceRecord.self, forKey: .targetDeviceRecord)
-        self.localComputerRecord = try container.decode(ActionDeviceRecord.self, forKey: .localComputerRecord)
-        self.targetSDKRecord = try container.decode(ActionSDKRecord.self, forKey: .localComputerRecord)
+        displayName = try container.decodeValue(String.self, forKey: .displayName)
+        targetArchitecture = try container.decodeValue(String.self, forKey: .targetArchitecture)
+        targetDeviceRecord = try container.decode(ActionDeviceRecord.self, forKey: .targetDeviceRecord)
+        localComputerRecord = try container.decode(ActionDeviceRecord.self, forKey: .localComputerRecord)
+        targetSDKRecord = try container.decode(ActionSDKRecord.self, forKey: .localComputerRecord)
     }
 }
