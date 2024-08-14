@@ -7,7 +7,7 @@ public class ActionTestMetadata: ActionTestSummaryIdentifiableObject {
     public let performanceMetricsCount: Int?
     public let failureSummariesCount: Int?
     public let activitySummariesCount: Int?
-    
+
     private enum CodingKeys: String, CodingKey {
         case testStatus
         case duration
@@ -16,16 +16,16 @@ public class ActionTestMetadata: ActionTestSummaryIdentifiableObject {
         case failureSummariesCount
         case activitySummariesCount
     }
-    
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.testStatus = try container.decodeValue(String.self, forKey: .testStatus)
-        self.duration = try container.decodeValueIfPresent(Double.self, forKey: .duration)
-        self.summaryRef = try container.decodeIfPresent(Reference.self, forKey: .summaryRef)
-        self.performanceMetricsCount = try container.decodeValueIfPresent(Int.self, forKey: .performanceMetricsCount)
-        self.failureSummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .failureSummariesCount)
-        self.activitySummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .activitySummariesCount)
+
+        testStatus = try container.decodeValue(String.self, forKey: .testStatus)
+        duration = try container.decodeValueIfPresent(Double.self, forKey: .duration)
+        summaryRef = try container.decodeIfPresent(Reference.self, forKey: .summaryRef)
+        performanceMetricsCount = try container.decodeValueIfPresent(Int.self, forKey: .performanceMetricsCount)
+        failureSummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .failureSummariesCount)
+        activitySummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .activitySummariesCount)
 
         try super.init(from: decoder)
     }

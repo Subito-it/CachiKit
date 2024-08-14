@@ -7,7 +7,7 @@ public class ActivityLogMessage: Codable {
     public let category: String?
     public let location: DocumentLocation?
     public let annotations: [ActivityLogMessageAnnotation]
-    
+
     private enum CodingKeys: String, CodingKey {
         case type
         case title
@@ -16,16 +16,15 @@ public class ActivityLogMessage: Codable {
         case location
         case annotations
     }
-    
-    required public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.type = try container.decodeValue(String.self, forKey: .type)
-        self.title = try container.decodeValue(String.self, forKey: .title)
-        self.shortTitle = try container.decodeValueIfPresent(String.self, forKey: .shortTitle)
-        self.category = try container.decodeValueIfPresent(String.self, forKey: .category)
-        self.location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
-        self.annotations = try container.decodeValues(ActivityLogMessageAnnotation.self, forKey: .annotations)
-    }
 
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        type = try container.decodeValue(String.self, forKey: .type)
+        title = try container.decodeValue(String.self, forKey: .title)
+        shortTitle = try container.decodeValueIfPresent(String.self, forKey: .shortTitle)
+        category = try container.decodeValueIfPresent(String.self, forKey: .category)
+        location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
+        annotations = try container.decodeValues(ActivityLogMessageAnnotation.self, forKey: .annotations)
+    }
 }

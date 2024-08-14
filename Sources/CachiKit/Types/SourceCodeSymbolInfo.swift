@@ -4,19 +4,18 @@ public class SourceCodeSymbolInfo: Codable {
     public let imageName: String?
     public let symbolName: String?
     public let location: SourceCodeLocation?
-    
-    
+
     private enum CodingKeys: String, CodingKey {
         case imageName
         case symbolName
         case location
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.imageName = try container.decodeValueIfPresent(String.self, forKey: .imageName)
-        self.symbolName = try container.decodeValueIfPresent(String.self, forKey: .symbolName)
-        self.location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
+
+        imageName = try container.decodeValueIfPresent(String.self, forKey: .imageName)
+        symbolName = try container.decodeValueIfPresent(String.self, forKey: .symbolName)
+        location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
     }
 }

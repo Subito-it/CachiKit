@@ -7,7 +7,7 @@ public class ResultMetrics: Codable {
     public let testsFailedCount: Int?
     public let testsSkippedCount: Int?
     public let warningCount: Int?
-    
+
     private enum CodingKeys: String, CodingKey {
         case analyzerWarningCount
         case errorCount
@@ -16,15 +16,15 @@ public class ResultMetrics: Codable {
         case testsSkippedCount
         case warningCount
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.analyzerWarningCount = try container.decodeValueIfPresent(Int.self, forKey: .analyzerWarningCount)
-        self.errorCount = try container.decodeValueIfPresent(Int.self, forKey: .errorCount)
-        self.testsCount = try container.decodeValueIfPresent(Int.self, forKey: .testsCount)
-        self.testsFailedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsFailedCount)
-        self.testsSkippedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsSkippedCount)
-        self.warningCount = try container.decodeValueIfPresent(Int.self, forKey: .warningCount)
+
+        analyzerWarningCount = try container.decodeValueIfPresent(Int.self, forKey: .analyzerWarningCount)
+        errorCount = try container.decodeValueIfPresent(Int.self, forKey: .errorCount)
+        testsCount = try container.decodeValueIfPresent(Int.self, forKey: .testsCount)
+        testsFailedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsFailedCount)
+        testsSkippedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsSkippedCount)
+        warningCount = try container.decodeValueIfPresent(Int.self, forKey: .warningCount)
     }
 }

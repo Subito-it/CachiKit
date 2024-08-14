@@ -10,7 +10,7 @@ public class ActionTestAttachment: Codable {
     public let filename: String?
     public let payloadRef: Reference?
     public let payloadSize: Int?
-    
+
     private enum CodingKeys: String, CodingKey {
         case uniformTypeIdentifier
         case name
@@ -22,18 +22,18 @@ public class ActionTestAttachment: Codable {
         case payloadRef
         case payloadSize
     }
-    
-    required public init(from decoder: Decoder) throws {
+
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.uniformTypeIdentifier = try container.decodeValue(String.self, forKey: .uniformTypeIdentifier)
-        self.name = try container.decodeValueIfPresent(String.self, forKey: .name)
-        self.timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
-        self.userInfo = try container.decodeValueIfPresent(SortedKeyValueArray.self, forKey: .userInfo)
-        self.lifetime = try container.decodeValue(String.self, forKey: .lifetime)
-        self.inActivityIdentifier = try container.decodeValueIfPresent(Int.self, forKey: .inActivityIdentifier) ?? -1
-        self.filename = try container.decodeValueIfPresent(String.self, forKey: .filename)
-        self.payloadRef = try container.decodeIfPresent(Reference.self, forKey: .payloadRef)
-        self.payloadSize = try container.decodeValueIfPresent(Int.self, forKey: .payloadSize)
+
+        uniformTypeIdentifier = try container.decodeValue(String.self, forKey: .uniformTypeIdentifier)
+        name = try container.decodeValueIfPresent(String.self, forKey: .name)
+        timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
+        userInfo = try container.decodeValueIfPresent(SortedKeyValueArray.self, forKey: .userInfo)
+        lifetime = try container.decodeValue(String.self, forKey: .lifetime)
+        inActivityIdentifier = try container.decodeValueIfPresent(Int.self, forKey: .inActivityIdentifier) ?? -1
+        filename = try container.decodeValueIfPresent(String.self, forKey: .filename)
+        payloadRef = try container.decodeIfPresent(Reference.self, forKey: .payloadRef)
+        payloadSize = try container.decodeValueIfPresent(Int.self, forKey: .payloadSize)
     }
 }
