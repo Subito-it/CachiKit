@@ -9,6 +9,7 @@ public class CachiKit {
     }
 
     private let url: URL
+    private var xcresultToolVersion: String?
 
     public init(url: URL) {
         self.url = url
@@ -69,7 +70,7 @@ public class CachiKit {
         // The information we are interested in is located at the beginning of the output. Therefore we use
         // a custom handler that exists when we received a reasonable amount of data
         DispatchQueue.global(qos: .userInitiated).async {
-            let handle = HeadHandler(headSize: 4096) { data in
+            let handle = HeadHandler(headSize: 4_096) { data in
                 rawString = String(decoding: data, as: UTF8.self)
                 sem.signal()
             }
@@ -132,7 +133,10 @@ public class CachiKit {
 
         for sessionLog in [SessionLogs.appStdOutErr, .runnerAppStdOutErr, .session, .scheduling] {
             if sessionLogs.contains(sessionLog), let index = elementsOrder.firstIndex(of: sessionLog) {
-                let cmd = "xcrun xcresulttool get --path '\(url.path)' --id \(identifiers[index])"
+                var cmd = "xcrun xcresulttool get --path '\(url.path)' --id \(identifiers[index])"
+                if requiresXcResultToolLegacyParameter() {
+                    cmd += " --legacy"
+                }
 
                 os_log("Running '%@'", log: .default, type: .debug, cmd)
                 result[sessionLog] = try shellOut(to: [cmd])
@@ -144,8 +148,11 @@ public class CachiKit {
 
     private func decode<T: Decodable>(identifier: String?) throws -> T {
         var cmd = "xcrun xcresulttool get --path '\(url.path)' --format json"
-        if let identifier = identifier {
+        if let identifier {
             cmd += " --id \(identifier)"
+        }
+        if requiresXcResultToolLegacyParameter() {
+            cmd += " --legacy"
         }
 
         os_log("Running '%@'", log: .default, type: .debug, cmd)
@@ -161,6 +168,11 @@ public class CachiKit {
             #endif
             throw error
         }
+    }
+
+    private func requiresXcResultToolLegacyParameter() -> Bool {
+        xcresultToolVersion = xcresultToolVersion ?? (try! shellOut(to: ["xcrun xcresulttool version"]))
+        return xcresultToolVersion?.contains("version 22") == false
     }
 }
 
