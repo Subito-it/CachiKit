@@ -10,6 +10,6 @@ public class ArchiveInfo: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        path = try container.decodeValueIfPresent(String.self, forKey: .path)
+        self.path = try container.decodeValueIfPresent(String.self, forKey: .path)
     }
 }

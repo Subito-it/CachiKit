@@ -24,13 +24,13 @@ public class ActionTestActivitySummary: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        title = try container.decodeValueIfPresent(String.self, forKey: .title) ?? ""
-        activityType = try container.decodeValue(String.self, forKey: .activityType)
-        uuid = try container.decodeValue(String.self, forKey: .uuid)
-        start = try container.decodeValueIfPresent(Date.self, forKey: .start)
-        finish = try container.decodeValueIfPresent(Date.self, forKey: .finish)
-        attachments = try container.decodeValuesIfPresent(ActionTestAttachment.self, forKey: .attachments) ?? []
-        subactivities = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .subactivities) ?? []
-        failureSummaryIDs = try container.decodeValuesIfPresent(String.self, forKey: .failureSummaryIDs) ?? []
+        self.title = try container.decodeValueIfPresent(String.self, forKey: .title) ?? ""
+        self.activityType = try container.decodeValue(String.self, forKey: .activityType)
+        self.uuid = try container.decodeValue(String.self, forKey: .uuid)
+        self.start = try container.decodeValueIfPresent(Date.self, forKey: .start)
+        self.finish = try container.decodeValueIfPresent(Date.self, forKey: .finish)
+        self.attachments = try container.decodeValuesIfPresent(ActionTestAttachment.self, forKey: .attachments) ?? []
+        self.subactivities = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .subactivities) ?? []
+        self.failureSummaryIDs = try container.decodeValuesIfPresent(String.self, forKey: .failureSummaryIDs) ?? []
     }
 }

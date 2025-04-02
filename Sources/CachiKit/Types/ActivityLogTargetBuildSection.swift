@@ -10,6 +10,6 @@ public class ActivityLogTargetBuildSection: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        productType = try container.decodeValueIfPresent(String.self, forKey: .productType)
+        self.productType = try container.decodeValueIfPresent(String.self, forKey: .productType)
     }
 }

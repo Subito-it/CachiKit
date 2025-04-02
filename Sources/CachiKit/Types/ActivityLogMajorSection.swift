@@ -10,7 +10,7 @@ public class ActivityLogMajorSection: ActivityLogSection {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        subtitle = try container.decodeValue(String.self, forKey: .subtitle)
+        self.subtitle = try container.decodeValue(String.self, forKey: .subtitle)
 
         try super.init(from: decoder)
     }

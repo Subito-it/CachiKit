@@ -14,9 +14,9 @@ public class ActivityLogCommandInvocationSection: ActivityLogSection {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        commandDetails = try container.decodeValue(String.self, forKey: .commandDetails)
-        emittedOutput = try container.decodeValue(String.self, forKey: .emittedOutput)
-        exitCode = try container.decodeValueIfPresent(Int.self, forKey: .exitCode)
+        self.commandDetails = try container.decodeValue(String.self, forKey: .commandDetails)
+        self.emittedOutput = try container.decodeValue(String.self, forKey: .emittedOutput)
+        self.exitCode = try container.decodeValueIfPresent(Int.self, forKey: .exitCode)
 
         try super.init(from: decoder)
     }

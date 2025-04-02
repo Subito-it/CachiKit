@@ -10,6 +10,6 @@ public class ActivityLogAnalyzerStep: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        parentIndex = try container.decodeValue(Int.self, forKey: .parentIndex)
+        self.parentIndex = try container.decodeValue(Int.self, forKey: .parentIndex)
     }
 }

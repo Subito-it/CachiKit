@@ -12,7 +12,7 @@ public class ActivityLogMessageAnnotation: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        title = try container.decodeValue(String.self, forKey: .title)
-        location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
+        self.title = try container.decodeValue(String.self, forKey: .title)
+        self.location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
     }
 }

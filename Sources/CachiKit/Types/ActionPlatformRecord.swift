@@ -12,7 +12,7 @@ public class ActionPlatformRecord: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        identifier = try container.decodeValue(String.self, forKey: .identifier)
-        userDescription = try container.decodeValue(String.self, forKey: .userDescription)
+        self.identifier = try container.decodeValue(String.self, forKey: .identifier)
+        self.userDescription = try container.decodeValue(String.self, forKey: .userDescription)
     }
 }

@@ -14,8 +14,8 @@ public class ActionTestSummaryGroup: ActionTestSummaryIdentifiableObject {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        duration = try container.decodeValueIfPresent(Double.self, forKey: .duration) ?? 0
-        subtests = try container.decodeValuesIfPresent(ActionTestSummaryGroup.self, forKey: .subtests) ?? []
+        self.duration = try container.decodeValueIfPresent(Double.self, forKey: .duration) ?? 0
+        self.subtests = try container.decodeValuesIfPresent(ActionTestSummaryGroup.self, forKey: .subtests) ?? []
 
         let identifier = try container.decodeValueIfPresent(String.self, forKey: .identifier) ?? ""
         let name = try container.decodeValueIfPresent(String.self, forKey: .name) ?? ""

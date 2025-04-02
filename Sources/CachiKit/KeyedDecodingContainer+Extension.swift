@@ -69,7 +69,7 @@ private class XCResultValue: TypedObject {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        _value = try container.decodeIfPresent(String.self, forKey: ._value)
+        self._value = try container.decodeIfPresent(String.self, forKey: ._value)
 
         try super.init(from: decoder)
     }
@@ -89,9 +89,9 @@ private class XCResultValues<T: Codable>: Codable {
         if arrayContainer.isAtEnd == false {
             let elementType = try arrayContainer.decode(TypedObject.self)._type._name
 
-            _values = try container.decode(elementType, forKey: ._values)
+            self._values = try container.decode(elementType, forKey: ._values)
         } else {
-            _values = []
+            self._values = []
         }
     }
 }

@@ -16,9 +16,9 @@ public class ActionSDKRecord: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        name = try container.decodeValue(String.self, forKey: .name)
-        identifier = try container.decodeValue(String.self, forKey: .identifier)
-        operatingSystemVersion = try container.decodeValue(String.self, forKey: .operatingSystemVersion)
-        isInternal = try container.decodeValueIfPresent(Bool.self, forKey: .isInternal)
+        self.name = try container.decodeValue(String.self, forKey: .name)
+        self.identifier = try container.decodeValue(String.self, forKey: .identifier)
+        self.operatingSystemVersion = try container.decodeValue(String.self, forKey: .operatingSystemVersion)
+        self.isInternal = try container.decodeValueIfPresent(Bool.self, forKey: .isInternal)
     }
 }

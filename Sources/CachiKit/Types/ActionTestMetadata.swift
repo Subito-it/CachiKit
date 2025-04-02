@@ -20,12 +20,12 @@ public class ActionTestMetadata: ActionTestSummaryIdentifiableObject {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        testStatus = try container.decodeValue(String.self, forKey: .testStatus)
-        duration = try container.decodeValueIfPresent(Double.self, forKey: .duration)
-        summaryRef = try container.decodeIfPresent(Reference.self, forKey: .summaryRef)
-        performanceMetricsCount = try container.decodeValueIfPresent(Int.self, forKey: .performanceMetricsCount)
-        failureSummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .failureSummariesCount)
-        activitySummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .activitySummariesCount)
+        self.testStatus = try container.decodeValue(String.self, forKey: .testStatus)
+        self.duration = try container.decodeValueIfPresent(Double.self, forKey: .duration)
+        self.summaryRef = try container.decodeIfPresent(Reference.self, forKey: .summaryRef)
+        self.performanceMetricsCount = try container.decodeValueIfPresent(Int.self, forKey: .performanceMetricsCount)
+        self.failureSummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .failureSummariesCount)
+        self.activitySummariesCount = try container.decodeValueIfPresent(Int.self, forKey: .activitySummariesCount)
 
         try super.init(from: decoder)
     }

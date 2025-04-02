@@ -14,8 +14,8 @@ public class SourceCodeSymbolInfo: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        imageName = try container.decodeValueIfPresent(String.self, forKey: .imageName)
-        symbolName = try container.decodeValueIfPresent(String.self, forKey: .symbolName)
-        location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
+        self.imageName = try container.decodeValueIfPresent(String.self, forKey: .imageName)
+        self.symbolName = try container.decodeValueIfPresent(String.self, forKey: .symbolName)
+        self.location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
     }
 }

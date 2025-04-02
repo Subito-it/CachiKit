@@ -166,7 +166,7 @@ public class CachiKit {
         } catch {
             print("\n\nFailed decoding instance of type \(T.self)")
             #if DEBUG
-                dump(error)
+            dump(error)
             #endif
             throw error
         }

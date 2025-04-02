@@ -10,6 +10,6 @@ public class ActionTestPlanRunSummaries: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        summaries = try container.decodeValues(ActionTestPlanRunSummary.self, forKey: .summaries)
+        self.summaries = try container.decodeValues(ActionTestPlanRunSummary.self, forKey: .summaries)
     }
 }

@@ -20,11 +20,11 @@ public class ResultMetrics: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        analyzerWarningCount = try container.decodeValueIfPresent(Int.self, forKey: .analyzerWarningCount)
-        errorCount = try container.decodeValueIfPresent(Int.self, forKey: .errorCount)
-        testsCount = try container.decodeValueIfPresent(Int.self, forKey: .testsCount)
-        testsFailedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsFailedCount)
-        testsSkippedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsSkippedCount)
-        warningCount = try container.decodeValueIfPresent(Int.self, forKey: .warningCount)
+        self.analyzerWarningCount = try container.decodeValueIfPresent(Int.self, forKey: .analyzerWarningCount)
+        self.errorCount = try container.decodeValueIfPresent(Int.self, forKey: .errorCount)
+        self.testsCount = try container.decodeValueIfPresent(Int.self, forKey: .testsCount)
+        self.testsFailedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsFailedCount)
+        self.testsSkippedCount = try container.decodeValueIfPresent(Int.self, forKey: .testsSkippedCount)
+        self.warningCount = try container.decodeValueIfPresent(Int.self, forKey: .warningCount)
     }
 }
