@@ -24,13 +24,13 @@ public class ActionRecord: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        schemeCommandName = try container.decodeValue(String.self, forKey: .schemeCommandName)
-        schemeTaskName = try container.decodeValue(String.self, forKey: .schemeTaskName)
-        title = try container.decodeValueIfPresent(String.self, forKey: .title)
-        startedTime = try container.decodeValue(Date.self, forKey: .startedTime)
-        endedTime = try container.decodeValue(Date.self, forKey: .endedTime)
-        runDestination = try container.decode(ActionRunDestinationRecord.self, forKey: .runDestination)
-        buildResult = try container.decode(ActionResult.self, forKey: .buildResult)
-        actionResult = try container.decode(ActionResult.self, forKey: .actionResult)
+        self.schemeCommandName = try container.decodeValue(String.self, forKey: .schemeCommandName)
+        self.schemeTaskName = try container.decodeValue(String.self, forKey: .schemeTaskName)
+        self.title = try container.decodeValueIfPresent(String.self, forKey: .title)
+        self.startedTime = try container.decodeValue(Date.self, forKey: .startedTime)
+        self.endedTime = try container.decodeValue(Date.self, forKey: .endedTime)
+        self.runDestination = try container.decode(ActionRunDestinationRecord.self, forKey: .runDestination)
+        self.buildResult = try container.decode(ActionResult.self, forKey: .buildResult)
+        self.actionResult = try container.decode(ActionResult.self, forKey: .actionResult)
     }
 }

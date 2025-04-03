@@ -11,6 +11,6 @@ public class SortedKeyValueArrayPair: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        key = try container.decodeValue(String.self, forKey: .key)
+        self.key = try container.decodeValue(String.self, forKey: .key)
     }
 }

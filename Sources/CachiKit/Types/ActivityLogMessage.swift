@@ -20,11 +20,11 @@ public class ActivityLogMessage: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        type = try container.decodeValue(String.self, forKey: .type)
-        title = try container.decodeValue(String.self, forKey: .title)
-        shortTitle = try container.decodeValueIfPresent(String.self, forKey: .shortTitle)
-        category = try container.decodeValueIfPresent(String.self, forKey: .category)
-        location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
-        annotations = try container.decodeValues(ActivityLogMessageAnnotation.self, forKey: .annotations)
+        self.type = try container.decodeValue(String.self, forKey: .type)
+        self.title = try container.decodeValue(String.self, forKey: .title)
+        self.shortTitle = try container.decodeValueIfPresent(String.self, forKey: .shortTitle)
+        self.category = try container.decodeValueIfPresent(String.self, forKey: .category)
+        self.location = try container.decodeIfPresent(DocumentLocation.self, forKey: .location)
+        self.annotations = try container.decodeValues(ActivityLogMessageAnnotation.self, forKey: .annotations)
     }
 }

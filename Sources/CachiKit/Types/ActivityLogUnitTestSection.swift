@@ -26,15 +26,15 @@ public class ActivityLogUnitTestSection: ActivityLogSection {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        testName = try container.decodeValueIfPresent(String.self, forKey: .testName)
-        suiteName = try container.decodeValueIfPresent(String.self, forKey: .suiteName)
-        summary = try container.decodeValueIfPresent(String.self, forKey: .summary)
-        emittedOutput = try container.decodeValueIfPresent(String.self, forKey: .emittedOutput)
-        performanceTestOutput = try container.decodeValueIfPresent(String.self, forKey: .performanceTestOutput)
-        testsPassedString = try container.decodeValueIfPresent(String.self, forKey: .testsPassedString)
-        wasSkipped = try container.decodeValueIfPresent(Bool.self, forKey: .wasSkipped) ?? false
-        runnablePath = try container.decodeValueIfPresent(String.self, forKey: .runnablePath)
-        runnableUTI = try container.decodeValueIfPresent(String.self, forKey: .runnableUTI)
+        self.testName = try container.decodeValueIfPresent(String.self, forKey: .testName)
+        self.suiteName = try container.decodeValueIfPresent(String.self, forKey: .suiteName)
+        self.summary = try container.decodeValueIfPresent(String.self, forKey: .summary)
+        self.emittedOutput = try container.decodeValueIfPresent(String.self, forKey: .emittedOutput)
+        self.performanceTestOutput = try container.decodeValueIfPresent(String.self, forKey: .performanceTestOutput)
+        self.testsPassedString = try container.decodeValueIfPresent(String.self, forKey: .testsPassedString)
+        self.wasSkipped = try container.decodeValueIfPresent(Bool.self, forKey: .wasSkipped) ?? false
+        self.runnablePath = try container.decodeValueIfPresent(String.self, forKey: .runnablePath)
+        self.runnableUTI = try container.decodeValueIfPresent(String.self, forKey: .runnableUTI)
 
         try super.init(from: decoder)
     }

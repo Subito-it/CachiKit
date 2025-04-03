@@ -28,15 +28,15 @@ public class ActionTestPerformanceMetricSummary: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        displayName = try container.decodeValue(String.self, forKey: .displayName)
-        unitOfMeasurement = try container.decodeValue(String.self, forKey: .unitOfMeasurement)
-        measurements = try container.decodeValues(Double.self, forKey: .measurements)
-        identifier = try container.decodeValueIfPresent(String.self, forKey: .identifier)
-        baselineName = try container.decodeValueIfPresent(String.self, forKey: .baselineName)
-        baselineAverage = try container.decodeValueIfPresent(Double.self, forKey: .baselineAverage)
-        maxPercentRegression = try container.decodeValueIfPresent(Double.self, forKey: .maxPercentRegression)
-        maxPercentRelativeStandardDeviation = try container.decodeValueIfPresent(Double.self, forKey: .maxPercentRelativeStandardDeviation)
-        maxRegression = try container.decodeValueIfPresent(Double.self, forKey: .maxRegression)
-        maxStandardDeviation = try container.decodeValueIfPresent(Double.self, forKey: .maxStandardDeviation)
+        self.displayName = try container.decodeValue(String.self, forKey: .displayName)
+        self.unitOfMeasurement = try container.decodeValue(String.self, forKey: .unitOfMeasurement)
+        self.measurements = try container.decodeValues(Double.self, forKey: .measurements)
+        self.identifier = try container.decodeValueIfPresent(String.self, forKey: .identifier)
+        self.baselineName = try container.decodeValueIfPresent(String.self, forKey: .baselineName)
+        self.baselineAverage = try container.decodeValueIfPresent(Double.self, forKey: .baselineAverage)
+        self.maxPercentRegression = try container.decodeValueIfPresent(Double.self, forKey: .maxPercentRegression)
+        self.maxPercentRelativeStandardDeviation = try container.decodeValueIfPresent(Double.self, forKey: .maxPercentRelativeStandardDeviation)
+        self.maxRegression = try container.decodeValueIfPresent(Double.self, forKey: .maxRegression)
+        self.maxStandardDeviation = try container.decodeValueIfPresent(Double.self, forKey: .maxStandardDeviation)
     }
 }

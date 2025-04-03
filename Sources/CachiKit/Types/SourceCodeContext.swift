@@ -12,7 +12,7 @@ public class SourceCodeContext: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
-        callStack = try container.decodeValuesIfPresent(SourceCodeFrame.self, forKey: .callStack) ?? []
+        self.location = try container.decodeValueIfPresent(SourceCodeLocation.self, forKey: .location)
+        self.callStack = try container.decodeValuesIfPresent(SourceCodeFrame.self, forKey: .callStack) ?? []
     }
 }

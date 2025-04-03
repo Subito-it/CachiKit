@@ -16,9 +16,9 @@ public class IssueSummary: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        issueType = try container.decodeValue(String.self, forKey: .issueType)
-        message = try container.decodeValue(String.self, forKey: .message)
-        producingTarget = try container.decodeValueIfPresent(String.self, forKey: .producingTarget)
-        documentLocationInCreatingWorkspace = try container.decodeIfPresent(DocumentLocation.self, forKey: .documentLocationInCreatingWorkspace)
+        self.issueType = try container.decodeValue(String.self, forKey: .issueType)
+        self.message = try container.decodeValue(String.self, forKey: .message)
+        self.producingTarget = try container.decodeValueIfPresent(String.self, forKey: .producingTarget)
+        self.documentLocationInCreatingWorkspace = try container.decodeIfPresent(DocumentLocation.self, forKey: .documentLocationInCreatingWorkspace)
     }
 }

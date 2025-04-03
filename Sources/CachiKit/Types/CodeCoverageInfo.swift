@@ -14,8 +14,8 @@ public class CodeCoverageInfo: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        hasCoverageData = try container.decodeValueIfPresent(Bool.self, forKey: .hasCoverageData)
-        reportRef = try container.decodeIfPresent(Reference.self, forKey: .reportRef)
-        archiveRef = try container.decodeIfPresent(Reference.self, forKey: .archiveRef)
+        self.hasCoverageData = try container.decodeValueIfPresent(Bool.self, forKey: .hasCoverageData)
+        self.reportRef = try container.decodeIfPresent(Reference.self, forKey: .reportRef)
+        self.archiveRef = try container.decodeIfPresent(Reference.self, forKey: .archiveRef)
     }
 }

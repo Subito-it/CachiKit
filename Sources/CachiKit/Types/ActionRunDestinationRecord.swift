@@ -18,10 +18,10 @@ public class ActionRunDestinationRecord: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        displayName = try container.decodeValue(String.self, forKey: .displayName)
-        targetArchitecture = try container.decodeValue(String.self, forKey: .targetArchitecture)
-        targetDeviceRecord = try container.decode(ActionDeviceRecord.self, forKey: .targetDeviceRecord)
-        localComputerRecord = try container.decode(ActionDeviceRecord.self, forKey: .localComputerRecord)
-        targetSDKRecord = try container.decode(ActionSDKRecord.self, forKey: .localComputerRecord)
+        self.displayName = try container.decodeValue(String.self, forKey: .displayName)
+        self.targetArchitecture = try container.decodeValue(String.self, forKey: .targetArchitecture)
+        self.targetDeviceRecord = try container.decode(ActionDeviceRecord.self, forKey: .targetDeviceRecord)
+        self.localComputerRecord = try container.decode(ActionDeviceRecord.self, forKey: .localComputerRecord)
+        self.targetSDKRecord = try container.decode(ActionSDKRecord.self, forKey: .localComputerRecord)
     }
 }

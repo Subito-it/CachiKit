@@ -32,8 +32,10 @@ public class CachiKit {
     }
 
     public func export(identifier: String, destinationPath: String) throws {
-        let cmd = "xcrun xcresulttool export --path '\(url.path)' --type file --id \(identifier) --output-path '\(destinationPath)'"
-
+        var cmd = "xcrun xcresulttool export --path '\(url.path)' --type file --id \(identifier) --output-path '\(destinationPath)'"
+        if requiresXcResultToolLegacyParameter() {
+            cmd += " --legacy"
+        }
         os_log("Running '%@'", log: .default, type: .debug, cmd)
         try shellOut(to: [cmd])
     }
@@ -164,7 +166,7 @@ public class CachiKit {
         } catch {
             print("\n\nFailed decoding instance of type \(T.self)")
             #if DEBUG
-                dump(error)
+            dump(error)
             #endif
             throw error
         }

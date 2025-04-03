@@ -10,7 +10,7 @@ public class ActionTestSummaryIdentifiableObject: ActionAbstractTestSummary {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        identifier = try container.decodeValue(String.self, forKey: .identifier)
+        self.identifier = try container.decodeValue(String.self, forKey: .identifier)
 
         try super.init(from: decoder)
     }

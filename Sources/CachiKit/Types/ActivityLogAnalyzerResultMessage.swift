@@ -14,9 +14,9 @@ public class ActivityLogAnalyzerResultMessage: ActivityLogMessage {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        steps = try container.decodeValues(ActivityLogAnalyzerStep.self, forKey: .steps)
-        resultType = try container.decodeValueIfPresent(String.self, forKey: .resultType)
-        keyEventIndex = try container.decodeValue(Int.self, forKey: .keyEventIndex)
+        self.steps = try container.decodeValues(ActivityLogAnalyzerStep.self, forKey: .steps)
+        self.resultType = try container.decodeValueIfPresent(String.self, forKey: .resultType)
+        self.keyEventIndex = try container.decodeValue(Int.self, forKey: .keyEventIndex)
 
         try super.init(from: decoder)
     }

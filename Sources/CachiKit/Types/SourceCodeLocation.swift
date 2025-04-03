@@ -12,7 +12,7 @@ public class SourceCodeLocation: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        filePath = try container.decodeValueIfPresent(String.self, forKey: .filePath)
-        lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber)
+        self.filePath = try container.decodeValueIfPresent(String.self, forKey: .filePath)
+        self.lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber)
     }
 }

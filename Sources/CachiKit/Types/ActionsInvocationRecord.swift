@@ -18,10 +18,10 @@ public class ActionsInvocationRecord: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        metadataRef = try container.decodeIfPresent(Reference.self, forKey: .metadataRef)
-        metrics = try container.decode(ResultMetrics.self, forKey: .metrics)
-        issues = try container.decode(ResultIssueSummaries.self, forKey: .issues)
-        actions = try container.decodeValues(ActionRecord.self, forKey: .actions)
-        archive = try container.decodeIfPresent(ArchiveInfo.self, forKey: .archive)
+        self.metadataRef = try container.decodeIfPresent(Reference.self, forKey: .metadataRef)
+        self.metrics = try container.decode(ResultMetrics.self, forKey: .metrics)
+        self.issues = try container.decode(ResultIssueSummaries.self, forKey: .issues)
+        self.actions = try container.decodeValues(ActionRecord.self, forKey: .actions)
+        self.archive = try container.decodeIfPresent(ArchiveInfo.self, forKey: .archive)
     }
 }

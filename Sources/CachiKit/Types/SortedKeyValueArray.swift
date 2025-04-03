@@ -10,6 +10,6 @@ public class SortedKeyValueArray: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        storage = try container.decodeValues(SortedKeyValueArrayPair.self, forKey: .storage)
+        self.storage = try container.decodeValues(SortedKeyValueArrayPair.self, forKey: .storage)
     }
 }

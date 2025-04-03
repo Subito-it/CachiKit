@@ -14,8 +14,8 @@ public class TestAssociatedError: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        domain = try container.decodeValue(String.self, forKey: .domain)
-        code = try container.decodeValue(Int.self, forKey: .code)
-        userInfo = try container.decodeValue(SortedKeyValueArray.self, forKey: .userInfo)
+        self.domain = try container.decodeValue(String.self, forKey: .domain)
+        self.code = try container.decodeValue(Int.self, forKey: .code)
+        self.userInfo = try container.decodeValue(SortedKeyValueArray.self, forKey: .userInfo)
     }
 }

@@ -12,7 +12,7 @@ public class DocumentLocation: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        url = try container.decodeValueIfPresent(String.self, forKey: .url)
-        concreteTypeName = try container.decodeValue(String.self, forKey: .concreteTypeName)
+        self.url = try container.decodeValueIfPresent(String.self, forKey: .url)
+        self.concreteTypeName = try container.decodeValue(String.self, forKey: .concreteTypeName)
     }
 }

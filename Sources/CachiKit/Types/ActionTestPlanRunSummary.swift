@@ -10,7 +10,7 @@ public class ActionTestPlanRunSummary: ActionAbstractTestSummary {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        testableSummaries = try container.decodeValues(ActionTestableSummary.self, forKey: .testableSummaries)
+        self.testableSummaries = try container.decodeValues(ActionTestableSummary.self, forKey: .testableSummaries)
 
         try super.init(from: decoder)
     }

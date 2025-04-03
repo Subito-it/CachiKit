@@ -18,10 +18,10 @@ public class TestFailureIssueSummary: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        testCaseName = try container.decodeValue(String.self, forKey: .testCaseName)
-        issueType = try container.decodeValue(String.self, forKey: .issueType)
-        message = try container.decodeValue(String.self, forKey: .message)
-        producingTarget = try container.decodeValueIfPresent(String.self, forKey: .producingTarget)
-        documentLocationInCreatingWorkspace = try container.decodeIfPresent(DocumentLocation.self, forKey: .documentLocationInCreatingWorkspace)
+        self.testCaseName = try container.decodeValue(String.self, forKey: .testCaseName)
+        self.issueType = try container.decodeValue(String.self, forKey: .issueType)
+        self.message = try container.decodeValue(String.self, forKey: .message)
+        self.producingTarget = try container.decodeValueIfPresent(String.self, forKey: .producingTarget)
+        self.documentLocationInCreatingWorkspace = try container.decodeIfPresent(DocumentLocation.self, forKey: .documentLocationInCreatingWorkspace)
     }
 }

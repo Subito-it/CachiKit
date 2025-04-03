@@ -14,8 +14,8 @@ public class ActionTestNoticeSummary: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        message = try container.decodeValueIfPresent(String.self, forKey: .message)
-        fileName = try container.decodeValueIfPresent(String.self, forKey: .fileName) ?? "missing-filename"
-        lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber) ?? -1
+        self.message = try container.decodeValueIfPresent(String.self, forKey: .message)
+        self.fileName = try container.decodeValueIfPresent(String.self, forKey: .fileName) ?? "missing-filename"
+        self.lineNumber = try container.decodeValueIfPresent(Int.self, forKey: .lineNumber) ?? -1
     }
 }

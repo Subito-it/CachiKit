@@ -12,7 +12,7 @@ public class Reference: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        id = try container.decodeValue(String.self, forKey: .id)
-        targetType = try container.decodeIfPresent(TypeDefinition.self, forKey: .targetType)
+        self.id = try container.decodeValue(String.self, forKey: .id)
+        self.targetType = try container.decodeIfPresent(TypeDefinition.self, forKey: .targetType)
     }
 }

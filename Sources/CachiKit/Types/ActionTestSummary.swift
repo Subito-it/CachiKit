@@ -20,12 +20,12 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        testStatus = try container.decodeValue(String.self, forKey: .testStatus)
-        duration = try container.decodeValueIfPresent(Double.self, forKey: .duration) ?? 0
-        performanceMetrics = try container.decodeValuesIfPresent(ActionTestPerformanceMetricSummary.self, forKey: .performanceMetrics) ?? []
-        failureSummaries = try container.decodeValuesIfPresent(ActionTestFailureSummary.self, forKey: .failureSummaries) ?? []
-        skipNoticeSummary = try container.decodeValueIfPresent(ActionTestNoticeSummary.self, forKey: .skipNoticeSummary)
-        activitySummaries = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .activitySummaries) ?? []
+        self.testStatus = try container.decodeValue(String.self, forKey: .testStatus)
+        self.duration = try container.decodeValueIfPresent(Double.self, forKey: .duration) ?? 0
+        self.performanceMetrics = try container.decodeValuesIfPresent(ActionTestPerformanceMetricSummary.self, forKey: .performanceMetrics) ?? []
+        self.failureSummaries = try container.decodeValuesIfPresent(ActionTestFailureSummary.self, forKey: .failureSummaries) ?? []
+        self.skipNoticeSummary = try container.decodeValueIfPresent(ActionTestNoticeSummary.self, forKey: .skipNoticeSummary)
+        self.activitySummaries = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .activitySummaries) ?? []
 
         try super.init(from: decoder)
     }

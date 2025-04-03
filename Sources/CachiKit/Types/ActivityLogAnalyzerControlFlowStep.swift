@@ -16,10 +16,10 @@ public class ActivityLogAnalyzerControlFlowStep: ActivityLogAnalyzerStep {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        title = try container.decodeValue(String.self, forKey: .title)
-        startLocation = try container.decodeIfPresent(DocumentLocation.self, forKey: .startLocation)
-        endLocation = try container.decodeIfPresent(DocumentLocation.self, forKey: .endLocation)
-        edges = try container.decodeValues(ActivityLogAnalyzerControlFlowStepEdge.self, forKey: .edges)
+        self.title = try container.decodeValue(String.self, forKey: .title)
+        self.startLocation = try container.decodeIfPresent(DocumentLocation.self, forKey: .startLocation)
+        self.endLocation = try container.decodeIfPresent(DocumentLocation.self, forKey: .endLocation)
+        self.edges = try container.decodeValues(ActivityLogAnalyzerControlFlowStepEdge.self, forKey: .edges)
 
         try super.init(from: decoder)
     }

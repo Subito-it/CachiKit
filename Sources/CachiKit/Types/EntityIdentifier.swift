@@ -16,9 +16,9 @@ public class EntityIdentifier: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        entityName = try container.decodeValue(String.self, forKey: .entityName)
-        containerName = try container.decodeValue(String.self, forKey: .containerName)
-        entityType = try container.decodeValue(String.self, forKey: .entityType)
-        sharedState = try container.decodeValue(String.self, forKey: .sharedState)
+        self.entityName = try container.decodeValue(String.self, forKey: .entityName)
+        self.containerName = try container.decodeValue(String.self, forKey: .containerName)
+        self.entityType = try container.decodeValue(String.self, forKey: .entityType)
+        self.sharedState = try container.decodeValue(String.self, forKey: .sharedState)
     }
 }
