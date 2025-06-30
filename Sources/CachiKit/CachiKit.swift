@@ -61,7 +61,10 @@ public class CachiKit {
         // The ActionResult.diagnosticsRef is a Reference and does not contain information to the session
         // and standardOutput logs.
         // To get them we manually parse the graph output
-        let cmd = "xcrun xcresulttool graph --path '\(url.path)' --id \(identifier)"
+        var cmd = "xcrun xcresulttool graph --path '\(url.path)' --id \(identifier)"
+        if requiresXcResultToolLegacyParameter() {
+            cmd += " --legacy"
+        }
 
         os_log("Running '%@'", log: .default, type: .debug, cmd)
         var rawString = ""
