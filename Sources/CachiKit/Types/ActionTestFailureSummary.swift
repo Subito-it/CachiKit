@@ -45,4 +45,30 @@ public class ActionTestFailureSummary: Codable {
         self.timestamp = try container.decodeValueIfPresent(Date.self, forKey: .timestamp)
         self.isTopLevelFailure = try container.decodeValueIfPresent(Bool.self, forKey: .isTopLevelFailure) ?? true
     }
+
+    public init(message: String?,
+                fileName: String?,
+                lineNumber: Int?,
+                isPerformanceFailure: Bool? = nil,
+                uuid: String,
+                issueType: String? = nil,
+                detailedDescription: String?,
+                attachments: [ActionTestAttachment] = [],
+                associatedError: TestAssociatedError? = nil,
+                sourceCodeContext: SourceCodeContext? = nil,
+                timestamp: Date?,
+                isTopLevelFailure: Bool = true) {
+        self.message = message
+        self.fileName = fileName
+        self.lineNumber = lineNumber
+        self.isPerformanceFailure = isPerformanceFailure
+        self.uuid = uuid
+        self.issueType = issueType
+        self.detailedDescription = detailedDescription
+        self.attachments = attachments
+        self.associatedError = associatedError
+        self.sourceCodeContext = sourceCodeContext
+        self.timestamp = timestamp
+        self.isTopLevelFailure = isTopLevelFailure
+    }
 }

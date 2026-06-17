@@ -15,4 +15,9 @@ public class Reference: Codable {
         self.id = try container.decodeValue(String.self, forKey: .id)
         self.targetType = try container.decodeIfPresent(TypeDefinition.self, forKey: .targetType)
     }
+
+    public init(id: String, targetType: TypeDefinition? = nil) {
+        self.id = id
+        self.targetType = targetType
+    }
 }

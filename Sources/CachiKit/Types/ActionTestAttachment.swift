@@ -36,4 +36,24 @@ public class ActionTestAttachment: Codable {
         self.payloadRef = try container.decodeIfPresent(Reference.self, forKey: .payloadRef)
         self.payloadSize = try container.decodeValueIfPresent(Int.self, forKey: .payloadSize)
     }
+
+    public init(uniformTypeIdentifier: String,
+                name: String?,
+                timestamp: Date?,
+                userInfo: SortedKeyValueArray? = nil,
+                lifetime: String = "",
+                inActivityIdentifier: Int? = -1,
+                filename: String?,
+                payloadRef: Reference?,
+                payloadSize: Int?) {
+        self.uniformTypeIdentifier = uniformTypeIdentifier
+        self.name = name
+        self.timestamp = timestamp
+        self.userInfo = userInfo
+        self.lifetime = lifetime
+        self.inActivityIdentifier = inActivityIdentifier
+        self.filename = filename
+        self.payloadRef = payloadRef
+        self.payloadSize = payloadSize
+    }
 }

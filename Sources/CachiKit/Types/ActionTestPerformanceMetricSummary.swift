@@ -39,4 +39,26 @@ public class ActionTestPerformanceMetricSummary: Codable {
         self.maxRegression = try container.decodeValueIfPresent(Double.self, forKey: .maxRegression)
         self.maxStandardDeviation = try container.decodeValueIfPresent(Double.self, forKey: .maxStandardDeviation)
     }
+
+    public init(displayName: String,
+                unitOfMeasurement: String,
+                measurements: [Double],
+                identifier: String? = nil,
+                baselineName: String? = nil,
+                baselineAverage: Double? = nil,
+                maxPercentRegression: Double? = nil,
+                maxPercentRelativeStandardDeviation: Double? = nil,
+                maxRegression: Double? = nil,
+                maxStandardDeviation: Double? = nil) {
+        self.displayName = displayName
+        self.unitOfMeasurement = unitOfMeasurement
+        self.measurements = measurements
+        self.identifier = identifier
+        self.baselineName = baselineName
+        self.baselineAverage = baselineAverage
+        self.maxPercentRegression = maxPercentRegression
+        self.maxPercentRelativeStandardDeviation = maxPercentRelativeStandardDeviation
+        self.maxRegression = maxRegression
+        self.maxStandardDeviation = maxStandardDeviation
+    }
 }

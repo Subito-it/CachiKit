@@ -29,4 +29,21 @@ public class ActionTestSummary: ActionTestSummaryIdentifiableObject {
 
         try super.init(from: decoder)
     }
+
+    public init(identifier: String,
+                name: String,
+                testStatus: String,
+                duration: Double?,
+                performanceMetrics: [ActionTestPerformanceMetricSummary] = [],
+                failureSummaries: [ActionTestFailureSummary] = [],
+                skipNoticeSummary: ActionTestNoticeSummary? = nil,
+                activitySummaries: [ActionTestActivitySummary] = []) {
+        self.testStatus = testStatus
+        self.duration = duration
+        self.performanceMetrics = performanceMetrics
+        self.failureSummaries = failureSummaries
+        self.skipNoticeSummary = skipNoticeSummary
+        self.activitySummaries = activitySummaries
+        super.init(identifier: identifier, name: name)
+    }
 }

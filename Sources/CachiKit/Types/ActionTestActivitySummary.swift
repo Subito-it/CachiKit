@@ -33,4 +33,22 @@ public class ActionTestActivitySummary: Codable {
         self.subactivities = try container.decodeValuesIfPresent(ActionTestActivitySummary.self, forKey: .subactivities) ?? []
         self.failureSummaryIDs = try container.decodeValuesIfPresent(String.self, forKey: .failureSummaryIDs) ?? []
     }
+
+    public init(title: String?,
+                activityType: String,
+                uuid: String,
+                start: Date?,
+                finish: Date?,
+                attachments: [ActionTestAttachment],
+                subactivities: [ActionTestActivitySummary],
+                failureSummaryIDs: [String] = []) {
+        self.title = title
+        self.activityType = activityType
+        self.uuid = uuid
+        self.start = start
+        self.finish = finish
+        self.attachments = attachments
+        self.subactivities = subactivities
+        self.failureSummaryIDs = failureSummaryIDs
+    }
 }
