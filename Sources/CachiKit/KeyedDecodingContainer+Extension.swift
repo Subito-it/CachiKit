@@ -85,6 +85,12 @@ private class XCResultValues<T: Codable>: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
+        // Since the Xcode 27 xcresulttool (schema 0.4.0) an empty array omits `_values` entirely.
+        guard container.contains(._values) else {
+            self._values = []
+            return
+        }
+
         var arrayContainer = try container.nestedUnkeyedContainer(forKey: ._values)
         if arrayContainer.isAtEnd == false {
             let elementType = try arrayContainer.decode(TypedObject.self)._type._name
